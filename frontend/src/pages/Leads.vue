@@ -171,9 +171,7 @@
           "
           class="truncate text-base"
         >
-          <Tooltip :text="getRow(itemName, fieldName).label">
-            <div>{{ getRow(itemName, fieldName).timeAgo }}</div>
-          </Tooltip>
+          <div>{{ getRow(itemName, fieldName).label }}</div>
         </div>
         <div v-else-if="fieldName === 'sla_status'" class="truncate text-base">
           <Badge
@@ -310,7 +308,7 @@ import { usersStore } from '@/stores/users'
 import { statusesStore } from '@/stores/statuses'
 import { callEnabled } from '@/composables/settings'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
-import { Avatar, Tooltip, Dropdown } from 'frappe-ui'
+import { Avatar, Tooltip, Dropdown, dayjsLocal } from 'frappe-ui'
 import { useRoute } from 'vue-router'
 import { ref, computed, reactive, h } from 'vue'
 
@@ -487,7 +485,7 @@ function parseRows(rows, columns = []) {
         }))
       } else if (['modified', 'creation'].includes(row)) {
         _rows[row] = {
-          label: formatDate(lead[row]),
+          label: dayjsLocal(lead[row]).format('DD.MM.YYYY dd'),
           timeAgo: __(timeAgo(lead[row])),
         }
       } else if (
