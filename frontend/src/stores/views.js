@@ -21,7 +21,7 @@ export const viewsStore = defineStore('crm-views', (doctype) => {
       publicViews.value = []
       for (let view of views) {
         viewsByName[view.name] = view
-        view.type = view.type || 'list'
+        view.type = view.type || 'kanban'
         if (view.pinned) {
           pinnedViews.value?.push(view)
         }
@@ -44,7 +44,7 @@ export const viewsStore = defineStore('crm-views', (doctype) => {
   }
 
   function getView(view, type, doctype = null) {
-    type = type || 'list'
+    type = type || 'kanban'
     if (!view && doctype) {
       return standardViews.value[doctype + ' ' + type] || null
     }

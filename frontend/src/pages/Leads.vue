@@ -29,7 +29,7 @@
     }"
   />
   <KanbanView
-    v-if="route.params.viewType == 'kanban'"
+    v-if="route.params.viewType === 'kanban' || true"
     v-model="leads"
     :options="{
       getRoute: (row) => ({
@@ -229,7 +229,7 @@
   </KanbanView>
   <LeadsListView
     ref="leadsListView"
-    v-else-if="leads.data && rows.length"
+    v-else-if="leads.data && rows.length && route.params.viewType === 'list'"
     v-model="leads.data.page_length_count"
     v-model:list="leads"
     :rows="rows"
@@ -352,10 +352,10 @@ const rows = computed(() => {
       leads.value?.data.group_by_field,
       leads.value.data.columns,
     )
-  } else if (leads.value.data.view_type === 'kanban') {
-    return getKanbanRows(leads.value.data.data, leads.value.data.fields)
-  } else {
+  } else if (leads.value.data.view_type === 'list') {
     return parseRows(leads.value?.data.data, leads.value.data.columns)
+  } else {
+    return getKanbanRows(leads.value.data.data, leads.value.data.fields)
   }
 })
 
