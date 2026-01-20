@@ -157,6 +157,17 @@
                   @click="showFilesUploader = true"
                 />
 
+                <a
+                  v-if="doc?.mobile_no"
+                  :href="`https://wa.me/${doc.mobile_no}`"
+                  target="_blank"
+                  >
+                   <Button
+                    :tooltip="__('Go to WhatsApp')"
+                    :icon="WhatsAppIcon"
+                    />
+                </a>
+
                 <Button
                   v-if="canDelete"
                   :tooltip="__('Delete')"
