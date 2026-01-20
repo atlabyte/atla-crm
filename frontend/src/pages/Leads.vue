@@ -485,7 +485,7 @@ function parseRows(rows, columns = []) {
         }))
       } else if (['modified', 'creation'].includes(row)) {
         _rows[row] = {
-          label: dayjsLocal(lead[row]).format('DD.MM.YYYY dd'),
+          label: dayjsLocal(lead[row]).format('DD.MM.YYYY hh:mm'),
           timeAgo: __(timeAgo(lead[row])),
         }
       } else if (
