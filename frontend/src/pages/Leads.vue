@@ -29,7 +29,7 @@
     }"
   />
   <KanbanView
-    v-if="route.params.viewType === 'kanban' || true"
+    v-if="!route.params.viewType || route.params.viewType === 'kanban'"
     v-model="leads"
     :options="{
       getRoute: (row) => ({
@@ -229,7 +229,7 @@
   </KanbanView>
   <LeadsListView
     ref="leadsListView"
-    v-else-if="leads.data && rows.length && route.params.viewType === 'list'"
+    v-else-if="leads.data && rows.length"
     v-model="leads.data.page_length_count"
     v-model:list="leads"
     :rows="rows"
@@ -307,10 +307,10 @@ import { globalStore } from '@/stores/global'
 import { usersStore } from '@/stores/users'
 import { statusesStore } from '@/stores/statuses'
 import { callEnabled } from '@/composables/settings'
-import { formatDate, timeAgo, website, formatTime } from '@/utils'
-import { Avatar, Tooltip, Dropdown, dayjsLocal } from 'frappe-ui'
+import { formatDate, formatTime, timeAgo, website } from '@/utils'
+import { Avatar, dayjsLocal, Dropdown, Tooltip } from 'frappe-ui'
 import { useRoute } from 'vue-router'
-import { ref, computed, reactive, h } from 'vue'
+import { computed, h, reactive, ref } from 'vue'
 
 const { getFormattedPercent, getFormattedFloat, getFormattedCurrency } =
   getMeta('CRM Lead')

@@ -603,7 +603,7 @@ if (allowedViews.includes('list')) {
     icon: markRaw(ListIcon),
     onClick() {
       viewUpdated.value = false
-      router.push({ name: route.name })
+      router.push({ name: route.name, params: { viewType: 'list' } })
     },
   })
 }
