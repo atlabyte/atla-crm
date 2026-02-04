@@ -159,13 +159,23 @@
 
                 <a
                   v-if="doc?.mobile_no"
-                  :href="`https://wa.me/${doc.mobile_no}`"
+                  :href="`https://wa.me/${normalizePhoneNumber(doc.mobile_no)}`"
                   target="_blank"
-                  >
-                   <Button
+                >
+                  <Button
                     :tooltip="__('Go to WhatsApp')"
                     :icon="WhatsAppIcon"
-                    />
+                  />
+                </a>
+                <a
+                  v-else-if="doc?.phone"
+                  :href="`https://wa.me/${normalizePhoneNumber(doc.phone)}`"
+                  target="_blank"
+                >
+                  <Button
+                    :tooltip="__('Go to WhatsApp')"
+                    :icon="WhatsAppIcon"
+                  />
                 </a>
 
                 <Button
@@ -503,5 +513,9 @@ function reloadAssignees(data) {
   if (data?.hasOwnProperty('lead_owner')) {
     assignees.reload()
   }
+}
+
+function normalizePhoneNumber(number) {
+  return number.replace(/[\s\-()+]/g, '')
 }
 </script>
